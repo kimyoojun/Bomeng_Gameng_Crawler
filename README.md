@@ -10,3 +10,11 @@ pip install requests
 ```
 #### 설명
 웹 서버와 통신하기 위해 가장 널리 쓰이는 HTTP 라이브러리
+
+### python-dotenv 라이브러리
+#### 설치방법
+```
+pip install python-dotenv
+```
+#### 설명
+파이썬에서 민감한 정보(API키, 비밀번호)와 설정값을 소스 코드와 분리하여 .env파일로 관리할 수 있게 해주는 라이브러리
