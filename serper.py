@@ -27,7 +27,7 @@ def search_api(region: str):
     """
     payload = {
         # 검색어
-        "q": "협재 해수욕장",
+        "q": region,
         # 나라
         "gl": "kr",
         # 언어
