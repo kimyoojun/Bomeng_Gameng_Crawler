@@ -42,10 +42,10 @@ def search_api(region: str):
     pages = json.loads(response.text)
 
     # 서치 결과 페이지 링크를 담을 리스트
-    page_links = []
+    pageLinks = []
 
     # 서치 결과 리스트를 반복문으로 링크만 리스트에 저장
     for page in pages["organic"]:
-        page_links.append(page["link"])
+        pageLinks.append(page["link"])
 
-    return page_links
+    return pageLinks
