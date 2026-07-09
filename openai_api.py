@@ -56,21 +56,41 @@ SYSTEM_PROMPT = """
 
 # 관광지를 TouristSpotExtract에 맞게 추출하는 함수
 def extract_tourist_spot(text: str):
+   """여행지를 원하는 데이터 모델 형태로 반환하는 함수
+
+   크롤링한 관광지 데이터를 넣으면 openai LLM을 활용하여 TouristSpotExtract 형태의 데이터를 반환함
+
+   TouristSpotExtract{
+      name: 관광지명
+      companions: 누구랑 가기 좋은지 (예: 가족, 커플, 친구, 혼자)
+      categories: 카테고리 (힐링, 자연, 액티비티 등)
+      address: 관광지 주소
+      description: 관광지 소개 텍스트
+      spot_type: 구분 (축제, 관광지, 체험, 카페 등)
+      popularity_score: 인기도 점수 (검색 결과/리뷰 수 기반)
+   }
+
+   Args:
+        text (str): 크롤링한 해당 관광지 데이터
+
+   Returns:
+        TouristSpotExtract: TouristSpotExtract 형태의 관광지 데이터
+   """
     
-    completion = openai.beta.chat.completions.parse(
-    model = "gpt-4o-mini",
-    messages = [
-        {
-            "role": "system", 
-            "content": SYSTEM_PROMPT
-         },
-        {
-            "role": "user",
-            "content": f"다음 관광지 본문에서 정보를 추출해줘: \n\n{text}"
-        },
-    ],
+   completion = openai.beta.chat.completions.parse(
+   model = "gpt-4o-mini",
+   messages = [
+      {
+         "role": "system", 
+         "content": SYSTEM_PROMPT
+      },
+      {
+         "role": "user",
+         "content": f"다음 관광지 본문에서 정보를 추출해줘: \n\n{text}"
+      },
+   ],
 
-    response_format = TouristSpotExtract,
-    )
+   response_format = TouristSpotExtract,
+   )
 
-    return completion.choices[0].message.parsed
+   return completion.choices[0].message.parsed
