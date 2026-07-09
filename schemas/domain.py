@@ -1,10 +1,15 @@
 # 데이터를 수집할 사이트를 도메인 기준으로 분류
 
 # 공식 사이트
-official = ["go.kr"," kr.or", "tour.*.go.kr", "visit*"]
+officials = ["go.kr"," kr.or", "tour.*.go.kr", "visit*"]
 
 # 블로그
-blog = ["blog.naver.com", "tistory.com", "wordpress.com", "medium.com"]
+blogs = ["blog.naver.com", 
+        # 크롤링 코드를 안만든 관계로 우선 네이버 블로그만
+        # "tistory.com", 
+        # "wordpress.com", 
+        # "medium.com"
+        ]
 
 # 여행 사이트
-trip = ["trip.com", "tripadvisor.com", "agoda.com", "booking.com", "yanolja.com"]
+trips = ["trip.com", "tripadvisor.com", "agoda.com", "booking.com", "yanolja.com"]
