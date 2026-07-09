@@ -27,7 +27,7 @@ class TouristSpotExtract(BaseModel):
         default=None,
         description="인기도 점수 (검색 결과/리뷰 수 기반)"
     )
-    source_urls: List[str] = Field(
-        default_factory=list,
-        description="데이터를 뽑아온 원본 URL들"
-    )
+    # source_urls: List[str] = Field(
+    #     default_factory=list,
+    #     description="데이터를 뽑아온 원본 URL들"
+    # )
