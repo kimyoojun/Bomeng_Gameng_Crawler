@@ -16,18 +16,18 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def search_api(region: str):
+def search_api(attractions: str):
     """검색 결과 상위 10개 사이트 링크들을 반환하는 함수
 
     Args:
-        region (str): 검색할 검색어
+        attractions (str): 검색할 검색어
 
     Returns:
         list: 검색결과 상위 10개 사이트 링크
     """
     payload = {
         # 검색어
-        "q": region,
+        "q": attractions,
         # 나라
         "gl": "kr",
         # 언어
