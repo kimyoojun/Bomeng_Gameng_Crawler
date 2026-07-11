@@ -51,3 +51,35 @@ def blog_crawling(url: str):
     container = soup.select_one("div.se-main-container").text.replace("\n", "")
 
     return container
+
+
+def official_crawling(url: str):
+    """공식 사이트를 크롤링하는 함수
+
+    공식 사이트 링크를 매개변수로 입력하면 사이트 전체 데이터를 반환함
+
+    Args:
+        url (str): 공식 사이트 링크
+
+    return:
+        str: 공식 사이트 내용
+    """
+
+    # HTTP 요청 해더: 간단한 브라우저 User-Agent 설정
+    # (크롤러 차단을 줄이고 일부 사이트에서 정상적으로 응답을 받기 위함)
+    headers = {
+        "User-Agent": "Mozilla/5.0"
+    }
+
+    # 블로그 URL에 GET 요청
+    res = requests.get(url, headers=headers)
+
+    soup = BeautifulSoup(res.text, "html.parser")
+
+    name = soup.select_one("h4").text.replace("\n", "")
+
+    address = soup.select_one(".address").text.replace("\n", "")
+
+    container = soup.select_one(".grid-container").text.replace("\n", "")
+
+    return name, address, container
