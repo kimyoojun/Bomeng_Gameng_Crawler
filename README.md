@@ -47,3 +47,9 @@ pip install openpyxl
 ```
 #### 설명
 파이썬으로 엑셀파일을 읽고, 쓰고, 수정할 수 있는 라이브러리
+
+### supabase 라이브러리
+#### 설치 방법
+```
+pip install supabase
+```
