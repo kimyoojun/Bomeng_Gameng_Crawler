@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from datetime import datetime
 
 # 블로그 크롤링
 def blog_crawling(url: str, spot: str):
@@ -54,13 +55,16 @@ def blog_crawling(url: str, spot: str):
 
     # 파이썬에서 객체(Object)에 존재하지 않는 속성(Attribute)이나 메서드(함수)를 호출하려고 할 때 발생하는 오류
     except AttributeError:
+        now = datetime.now()
         print("오류 발생", spot)
+        print("오류 발생 시간", now.strftime("%Y-%m-%d %H:%M:%S"))
+        print("\n")
 
     # 오류가 발생하지 않았을때 실행
     else:
         return container
 
-
+# 공식 사이트 크롤링 함수
 def official_crawling(url: str, spot: str):
     """공식 사이트를 크롤링하는 함수
 
@@ -95,6 +99,9 @@ def official_crawling(url: str, spot: str):
     # 파이썬에서 객체(Object)에 존재하지 않는 속성(Attribute)이나 메서드(함수)를 호출하려고 할 때 발생하는 오류
     except AttributeError:
         print("오류 발생", spot)
+        now = datetime.now()
+        print("오류 발생 시간", now.strftime("%Y-%m-%d %H:%M:%S"))
+        print("\n")
     
     # 오류가 발생하지 않았을떄 실행
     else:
