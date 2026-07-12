@@ -74,6 +74,8 @@ def visit_jeju_attractions():
 
             # 딕셔너리 생성
             place = {
+                # 순번
+                "id": 0,
                 # 콘텐츠 ID
                 "contentsId" : contentsId,
                 # 콘텐츠코드 값
@@ -93,9 +95,9 @@ def visit_jeju_attractions():
                 # 관광지 소개(LLM)
                 "description" : "",
                 # 누구랑 가기 좋은가?
-                "companions" : "",
+                "companions" : [],
                 # 카테고리
-                "categories" : "",
+                "categories" : [],
                 # 위도
                 "latitude" : latitude,
                 # 경도
