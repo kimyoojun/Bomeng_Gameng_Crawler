@@ -34,12 +34,17 @@ officialDatas = []
 
 # 최종 관광지 정보가 담길 리스트
 attractionsDatas = visit_jeju_attractions()
-
+# 순번을 넣기위한 변수
+i = 0
 # 가져온 관광지명 데이터 순회
-for attractionsData in attractionsDatas:
+for attractionsData in attractionsDatas:   
+    i += 1
+
+    # 순번 추가
+    attractionsData["id"] = i
 
     # ()안에 검색어를 입력하여 나온 상위 10개의 페이지 링크를 담는 리스트
-    pageLinks = search_api(attractionsDatas["title"])
+    pageLinks = search_api(attractionsData["region1cdLabel"] + " " + attractionsData["title"])
 
     # 페이지 리스트를 순환
     for link in pageLinks:
@@ -49,7 +54,7 @@ for attractionsData in attractionsDatas:
             # 만약 블로그 도메인 리스트에 있는 도메인이 순환중인 링크 안에 포함되어 있을때
             if blog in link:
                 # 해당 블로그 페이지의 내용을 크롤링
-                data = blog_crawling(link, attractionsDatas["title"])
+                data = blog_crawling(link, attractionsData["title"])
                 # 블로그 데이터 리스트에 추가
                 blogDatas.append(data)
 
@@ -59,53 +64,53 @@ for attractionsData in attractionsDatas:
             # 만약 공식 사이트 도메인일때
             if official in link:
                 # 해당 공식 사이트 페이지를 크롤링
-                data = official_crawling(link, attractionsDatas["title"])
+                data = official_crawling(link, attractionsData["title"])
                 # 공식사이트 데이터 리스트에 추가
                 officialDatas.append(data)
 
-    # # 공식 사이트 데이터를 순환하며 원하는 형태의 데이터로 추출
-    # for officialData in officialDatas:
+    # 공식 사이트 데이터를 순환하며 원하는 형태의 데이터로 추출
+    for officialData in officialDatas:
 
-    #     # LLM을 사용하여 데이터 추출
-    #     spotData = extract_tourist_spot(officialData)
+        # LLM을 사용하여 데이터 추출
+        spotData = extract_tourist_spot(officialData)
 
-    #     if item["name"] == "":
-    #         item["name"] = spotData.name
+        # if attractionsData["name"] == "":
+        #     attractionsData["name"] = spotData.name
         
-    #     if item["address"] == "":
-    #         item["address"] = spotData.address
+        # if attractionsData["address"] == "":
+        #     attractionsData["address"] = spotData.address
 
-    #     if item["description"] == "":
-    #         item["description"] = spotData.description
+        if attractionsData["description"] == "":
+            attractionsData["description"] = spotData.description
 
     # 블로그 데이터를 순환하며 원하는 형태의 데이터로 추출
     for blogData in blogDatas:
         spotData = extract_tourist_spot(blogData)
 
         # 누구와 가기 좋은지 데이터가 비어있으면 추가
-        if attractionsDatas["companions"] == []:
-            attractionsDatas["companions"] = spotData.companions
+        if attractionsData["companions"] == []:
+            attractionsData["companions"] = spotData.companions
         
         # 만약 비어있지 않으면 없는 데이터만 추가
-        elif attractionsDatas["companions"]:
-            # 추출한 데이터(spotData)중에서 저장한 데이터(attractionsDatas)에 없는 데이터만 추출하여 저장
-            noCompanions = list(set(spotData.companions) - set(attractionsDatas["companions"]))
+        elif attractionsData["companions"]:
+            # 추출한 데이터(spotData)중에서 저장한 데이터(attractionsData)에 없는 데이터만 추출하여 저장
+            noCompanions = list(set(spotData.companions) - set(attractionsData["companions"]))
 
-            # 추출한 데이터를 저장한 데이터(attractionsDatas)에 추가
-            attractionsDatas["companions"].extend(noCompanions)
+            # 추출한 데이터를 저장한 데이터(attractionsData)에 추가
+            attractionsData["companions"].extend(noCompanions)
 
         # 관광지 카테고리 데이터 비어있으면 추가
-        if attractionsDatas["categories"] == []:
-            attractionsDatas["categories"] = spotData.categories
+        if attractionsData["categories"] == []:
+            attractionsData["categories"] = spotData.categories
 
         # 비어있지 않을때 없는 데이터만 추가
-        elif attractionsDatas["categories"]:
+        elif attractionsData["categories"]:
 
             # 관광지 카테고리 데이터의 존재하지 않는 카테고리만 추출
-            noCategories = list(set(spotData.categories) - set(attractionsDatas["categories"]))
+            noCategories = list(set(spotData.categories) - set(attractionsData["categories"]))
 
             # 추출한 데이터를 저장
-            attractionsDatas["categories"].extend(noCategories)
+            attractionsData["categories"].extend(noCategories)
 
 # 데이터 엑셀로 저장
-# data_excel(attractionsDatas)
+data_excel(attractionsDatas)
